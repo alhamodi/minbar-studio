@@ -1,5 +1,5 @@
 # Minbar Studio
-**Professional Islamic Streaming Toolkit for OBS Studio**
+**Professional Islamic Streaming Toolkit for OBS Studio** | [Read in Arabic (العربية)](README.ar.md)
 
 ![Minbar Studio Banner](https://via.placeholder.com/1920x1080/0A192F/D4AF37?text=Minbar+Studio+-+Islamic+Broadcast+Toolkit)
 
