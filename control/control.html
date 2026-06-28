@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS WebSocket Control Panel</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --panel-bg: #2d2d2d;
+            --text-color: #f0f0f0;
+            --accent: #4a90e2;
+            --danger: #e24a4a;
+            --success: #4ae26a;
+            --border: #444;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg-color); color: var(--text-color); padding: 20px; margin: 0; }
+        .container { max-width: 900px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full-width { grid-column: 1 / -1; }
+        
+        h1, h2 { color: #fff; margin-top: 0; }
+        .section { background: var(--panel-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        
+        label { display: block; margin-bottom: 5px; font-weight: 500; color: #ccc; font-size: 0.9em; }
+        input[type="text"], input[type="number"] { width: 100%; padding: 10px; margin-bottom: 15px; background: #111; border: 1px solid var(--border); color: white; border-radius: 4px; box-sizing: border-box; }
+        input[type="color"] { margin-bottom: 15px; cursor: pointer; }
+        
+        button { background: #444; color: white; border: 1px solid #555; padding: 10px 15px; font-size: 14px; border-radius: 4px; cursor: pointer; font-weight: 600; transition: all 0.2s; margin-right: 5px; margin-bottom: 5px; }
+        button:hover { background: #555; }
+        
+        .btn-primary { background: var(--accent); border-color: #357abd; }
+        .btn-primary:hover { background: #357abd; }
+        .btn-danger { background: var(--danger); border-color: #c93030; }
+        .btn-success { background: var(--success); border-color: #35c953; color: #111; }
+        .btn-active { background: var(--success); color: #111; border-color: #35c953; }
+
+        .status-bar { padding: 10px; background: var(--panel-bg); border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); }
+        .status-indicator { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--danger); margin-right: 8px; }
+        .status-indicator.connected { background: var(--success); }
+
+        .scene-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .scene-buttons button { margin: 0; padding: 15px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="status-bar">
+        <div>
+            <span id="ws-status" class="status-indicator"></span>
+            <strong id="ws-status-text">Disconnected</strong>
+        </div>
+        <div>
+            <a href="/overlay/overlay.html" target="_blank" style="color: var(--accent); text-decoration: none;">Open Overlay in New Tab</a>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <!-- Scene Switcher -->
+        <div class="section full-width">
+            <h2>Scene Control</h2>
+            <div class="scene-buttons">
+                <button id="btn-scene-startingSoon" class="scene-btn btn-active" onclick="setScene('startingSoon')">Starting Soon</button>
+                <button id="btn-scene-live" class="scene-btn" onclick="setScene('live')">Live Stream</button>
+                <button id="btn-scene-brb" class="scene-btn" onclick="setScene('brb')">Be Right Back</button>
+                <button id="btn-scene-ending" class="scene-btn" onclick="setScene('ending')">Stream Ending</button>
+            </div>
+        </div>
+
+        <!-- Lower Third -->
+        <div class="section">
+            <h2>Lower Third</h2>
+            <label>Speaker Name</label>
+            <input type="text" id="lt-name" value="Speaker Name">
+            
+            <label>Title / Topic</label>
+            <input type="text" id="lt-title" value="Topic of the Lecture">
+            
+            <button id="btn-lt-toggle" onclick="toggleLowerThird()">Show Lower Third</button>
+            <button class="btn-primary" onclick="updateLowerThirdText()">Update Text</button>
+        </div>
+
+        <!-- Timer Control -->
+        <div class="section">
+            <h2>Countdown Timer</h2>
+            <label>Minutes</label>
+            <input type="number" id="timer-mins" value="5" min="1">
+            
+            <button class="btn-primary" onclick="startTimer()">Start / Reset Timer</button>
+            <button class="btn-danger" onclick="stopTimer()">Stop Timer</button>
+        </div>
+
+        <!-- Persistent UI -->
+        <div class="section">
+            <h2>Frame Border</h2>
+            <button id="btn-frame-toggle" onclick="toggleFrame()">Show Frame</button>
+        </div>
+
+        <!-- Theme Editor -->
+        <div class="section">
+            <h2>Theme Colors</h2>
+            <label>Primary (Background)</label>
+            <input type="color" id="color-primary" value="#0A192F">
+            
+            <label>Secondary (Gold)</label>
+            <input type="color" id="color-secondary" value="#D4AF37">
+            
+            <label>Accent (Cyan Glow)</label>
+            <input type="color" id="color-accent" value="#00FFCC">
+            
+            <button class="btn-primary" onclick="updateTheme()">Apply Colors</button>
+        </div>
+
+    </div>
+
+    <script src="control.js"></script>
+</body>
+</html>

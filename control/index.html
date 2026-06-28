@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Production Dashboard</title>
+    <style>
+        :root {
+            --bg-dark: #0f1115; --bg-panel: #1e2128; --bg-panel-hover: #2a2e38;
+            --text-main: #e2e8f0; --text-muted: #94a3b8;
+            --primary: #3b82f6; --primary-hover: #2563eb;
+            --success: #10b981; --danger: #ef4444; --border: #334155;
+        }
+        body { margin: 0; font-family: sans-serif; background: var(--bg-dark); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+        
+        aside { width: 250px; background: var(--bg-panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+        .logo { padding: 20px; font-weight: bold; border-bottom: 1px solid var(--border); }
+        .nav-item { padding: 15px 20px; cursor: pointer; border-bottom: 1px solid var(--border); }
+        .nav-item:hover, .nav-item.active { background: var(--bg-panel-hover); border-left: 4px solid var(--primary); }
+
+        main { flex: 1; display: flex; flex-direction: column; }
+        header { padding: 15px 30px; background: var(--bg-panel); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .status { display: flex; align-items: center; gap: 10px; }
+        .indicator { width: 10px; height: 10px; border-radius: 50%; background: var(--danger); }
+        .indicator.connected { background: var(--success); }
+        
+        .workspace { display: flex; flex: 1; overflow: hidden; }
+        .content-area { flex: 1; padding: 20px; overflow-y: auto; }
+        .inspector-panel { width: 350px; background: var(--bg-panel); border-left: 1px solid var(--border); padding: 20px; overflow-y: auto; }
+        
+        .content { display: none; }
+        .content.active { display: block; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+        .card { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 15px; cursor: pointer; }
+        .card:hover { border-color: var(--primary); }
+        .card.active { border-color: var(--success); }
+
+        input, select, textarea { width: 100%; padding: 8px; background: var(--bg-dark); border: 1px solid var(--border); color: white; border-radius: 4px; box-sizing: border-box; margin-bottom: 10px; }
+        label { display: block; margin-bottom: 5px; font-size: 0.9em; color: var(--text-muted); }
+        button { background: var(--primary); color: white; border: none; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; margin-bottom: 10px; }
+        button:hover { background: var(--primary-hover); }
+
+        .preview-wrapper { width: 100%; aspect-ratio: 16/9; background: #000; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+        iframe { width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+<body>
+    <aside>
+        <div class="logo">Production Control</div>
+        <div class="nav-item active" onclick="showTab('preview')">Live Preview</div>
+        <div class="nav-item" onclick="showTab('scenes')">Scenes</div>
+        <div class="nav-item" onclick="showTab('widgets')">Widgets</div>
+        <div class="nav-item" onclick="showTab('theme')">Theme</div>
+        <div class="nav-item" onclick="showTab('settings')">Settings</div>
+    </aside>
+
+    <main>
+        <header>
+            <div>Dashboard</div>
+            <div class="status">
+                <button onclick="undo()" style="width: auto; padding: 5px 10px; margin: 0;">Undo (Ctrl+Z)</button>
+                <div id="ws-indicator" class="indicator"></div>
+                <span id="ws-status">Disconnected</span>
+            </div>
+        </header>
+
+        <div class="workspace">
+            <div class="content-area">
+                <div id="tab-preview" class="content active">
+                    <h2>Live Overlay Output</h2>
+                    <div class="preview-wrapper">
+                        <iframe src="/overlay/index.html"></iframe>
+                    </div>
+                </div>
+
+                <div id="tab-scenes" class="content">
+                    <h2>Scenes</h2>
+                    <input type="text" id="scene-search" placeholder="Search scenes..." onkeyup="renderScenes()">
+                    <div class="grid" id="scene-grid"></div>
+                </div>
+
+                <div id="tab-widgets" class="content">
+                    <h2>Widgets</h2>
+                    <div class="grid" id="widget-grid"></div>
+                </div>
+
+                <div id="tab-theme" class="content">
+                    <h2>Theme Selection</h2>
+                    <select id="theme-select" onchange="updateTheme(this.value)"></select>
+                </div>
+                
+                <div id="tab-settings" class="content">
+                    <h2>Settings</h2>
+                    <button onclick="saveProject()">Save JSON State</button>
+                    <label>Load JSON State</label>
+                    <input type="file" id="load-file" accept=".json" onchange="loadProject(event)">
+                    <button onclick="window.location.href='/api/export'" style="background: var(--success);">Export ZIP Pack</button>
+                </div>
+            </div>
+
+            <!-- Property Inspector -->
+            <div class="inspector-panel" id="inspector">
+                <h3>Property Inspector</h3>
+                <p style="color: var(--text-muted); font-size: 0.9em;">Select a scene or widget to edit properties.</p>
+                <div id="inspector-content"></div>
+            </div>
+        </div>
+    </main>
+    <script src="/control/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "Ramadan Nights",
+  "id": "ramadan",
+  "colors": {
+    "primary": "#100C1F",
+    "secondary": "#1C1635",
+    "accent": "#FDB813",
+    "text": "#FFFFFF",
+    "textMuted": "#AAAAAA",
+    "success": "#10B981",
+    "danger": "#EF4444"
+  },
+  "fonts": {
+    "heading": "'Cinzel', serif",
+    "body": "'Outfit', sans-serif",
+    "arabic": "'Amiri', serif"
+  },
+  "metrics": {
+    "borderRadius": "8px",
+    "borderWidth": "2px",
+    "shadowLg": "0 10px 30px -10px #FDB81340",
+    "shadowSm": "0 4px 6px rgba(0,0,0,0.2)"
+  },
+  "animations": {
+    "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+    "durationSlow": "0.8s",
+    "durationFast": "0.3s"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "Masjid Serenity",
+  "id": "masjid",
+  "colors": {
+    "primary": "#F8F9FA",
+    "secondary": "#E9ECEF",
+    "accent": "#007A5E",
+    "text": "#212529",
+    "textMuted": "#6C757D",
+    "success": "#10B981",
+    "danger": "#EF4444"
+  },
+  "fonts": {
+    "heading": "'Cinzel', serif",
+    "body": "'Outfit', sans-serif",
+    "arabic": "'Amiri', serif"
+  },
+  "metrics": {
+    "borderRadius": "8px",
+    "borderWidth": "2px",
+    "shadowLg": "0 10px 30px -10px #007A5E40",
+    "shadowSm": "0 4px 6px rgba(0,0,0,0.2)"
+  },
+  "animations": {
+    "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+    "durationSlow": "0.8s",
+    "durationFast": "0.3s"
+  }
+}

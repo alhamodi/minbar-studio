@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS WebSocket Overlay</title>
+    <link rel="stylesheet" href="overlay.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@400;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Persistent Background Animation for Full Screen Scenes -->
+    <div id="global-bg" class="background-anim hidden"></div>
+
+    <!-- Scene 1: Starting Soon -->
+    <div id="scene-startingSoon" class="scene hidden">
+        <div class="content-box">
+            <h1 class="arabic-text">بسم الله الرحمن الرحيم</h1>
+            <h2 class="scene-title">Starting Soon</h2>
+            <div class="countdown-timer">05:00</div>
+            <p class="scene-subtitle">Please stand by</p>
+        </div>
+    </div>
+
+    <!-- Scene 2: Be Right Back -->
+    <div id="scene-brb" class="scene hidden">
+        <div class="content-box">
+            <h2 class="scene-title">Be Right Back</h2>
+            <div class="countdown-timer">05:00</div>
+            <p class="scene-subtitle">We will resume shortly</p>
+        </div>
+    </div>
+
+    <!-- Scene 3: Stream Ending -->
+    <div id="scene-ending" class="scene hidden">
+        <div class="content-box">
+            <h2 class="scene-title">Stream Ending</h2>
+            <p class="scene-subtitle">Thank you for watching</p>
+        </div>
+    </div>
+
+    <!-- Scene 4: Live (Transparent Camera/Gameplay) -->
+    <div id="scene-live" class="scene hidden">
+        <!-- Live scene has no center box, just borders or lower thirds -->
+    </div>
+
+    <!-- Persistent Elements (Independent of Scene) -->
+    
+    <!-- Frame Border -->
+    <div id="frame-overlay" class="persistent-element hidden">
+        <div class="frame-border top-left"></div>
+        <div class="frame-border top-right"></div>
+        <div class="frame-border bottom-left"></div>
+        <div class="frame-border bottom-right"></div>
+    </div>
+
+    <!-- Lower Third -->
+    <div id="lower-third" class="persistent-element hidden">
+        <div class="lt-container">
+            <div class="lt-icon">
+                <svg viewBox="0 0 100 100" class="islamic-star">
+                    <!-- 8 point star SVG -->
+                    <polygon points="50,0 60,35 95,35 68,55 78,90 50,70 22,90 32,55 5,35 40,35" fill="currentColor"/>
+                </svg>
+            </div>
+            <div class="lt-text-container">
+                <h3 id="lt-name">Speaker Name</h3>
+                <p id="lt-title">Title or topic goes here</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="overlay.js"></script>
+</body>
+</html>

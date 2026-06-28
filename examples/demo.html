@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minbar Studio - Live Demo</title>
+    <style>
+        body { margin: 0; background: #111; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        .wrapper { width: 80vw; max-width: 1200px; }
+        .iframe-container { width: 100%; aspect-ratio: 16/9; background: #000; border: 1px solid #333; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        iframe { width: 100%; height: 100%; border: none; }
+        .controls { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        button { background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #3b82f6; }
+        .status { margin-top: 15px; color: #aaa; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h1 style="margin: 0; color: #d4af37;">Minbar Studio</h1>
+            <p style="color: #888;">Automated Broadcast Demonstration</p>
+        </div>
+        <div class="iframe-container">
+            <iframe src="http://localhost:3000/overlay/index.html"></iframe>
+        </div>
+        <div class="controls">
+            <button onclick="startAutoDemo()">▶ Start Auto-Pilot</button>
+            <button onclick="simulateChat()">💬 Simulate Live Chat</button>
+            <button onclick="simulateDonation()">💰 Simulate Donation</button>
+        </div>
+        <div class="status" id="status-text">Ready. Server must be running on localhost:3000.</div>
+    </div>
+
+    <script>
+        const ws = new WebSocket('ws://localhost:3000');
+        let chatMessages = [];
+        let donationCurrent = 2500;
+
+        function updateState(partial) {
+            if (ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type: 'UPDATE_STATE', payload: partial }));
+            }
+        }
+
+        async function startAutoDemo() {
+            document.getElementById('status-text').innerText = "Running Demo Script: Starting Soon...";
+            
+            // 1. Starting Soon
+            updateState({ theme: 'gold', scene: 'startingSoon', widgets: {} });
+            
+            await new Promise(r => setTimeout(r, 6000));
+            
+            // 2. Go Live
+            document.getElementById('status-text').innerText = "Running Demo Script: Live with Lower Thirds...";
+            updateState({ 
+                scene: 'live',
+                widgets: { 
+                    speakerInfo: { show: true, name: "Sheikh Example", title: "Friday Khutbah" },
+                    ticker: { show: true, text: "Welcome to the Friday Khutbah broadcast." },
+                    logo: { show: true }
+                }
+            });
+
+            await new Promise(r => setTimeout(r, 6000));
+
+            // 3. Dua Scene
+            document.getElementById('status-text').innerText = "Running Demo Script: Dua Scene & Chat...";
+            updateState({ 
+                scene: 'dua',
+                theme: 'ramadan',
+                widgets: { 
+                    chatBox: { show: true, messages: [] },
+                    ticker: { show: false },
+                    speakerInfo: { show: false }
+                }
+            });
+            
+            // Simulate some chat
+            setTimeout(simulateChat, 1000);
+            setTimeout(simulateChat, 2000);
+            setTimeout(simulateChat, 3000);
+
+            await new Promise(r => setTimeout(r, 6000));
+
+            // 4. Ending
+            document.getElementById('status-text').innerText = "Running Demo Script: Ending Scene...";
+            updateState({ theme: 'emerald', scene: 'ending', widgets: { chatBox: { show: false } } });
+        }
+
+        function simulateChat() {
+            const users = ["Omar", "Fatima", "Aisha", "Ali", "Hassan"];
+            const msgs = ["Subhanallah", "Beautiful recitation", "Jazakallah Khair", "Ameen", "MashaAllah"];
+            const user = users[Math.floor(Math.random() * users.length)];
+            const text = msgs[Math.floor(Math.random() * msgs.length)];
+            chatMessages.push({ user, text });
+            if (chatMessages.length > 8) chatMessages.shift(); // keep last 8
+            
+            updateState({
+                widgets: { chatBox: { show: true, messages: [...chatMessages] } }
+            });
+        }
+
+        function simulateDonation() {
+            donationCurrent += 50;
+            updateState({
+                widgets: { donationGoal: { show: true, current: donationCurrent, target: 5000, title: "Masjid Roof Fund" } }
+            });
+        }
+    </script>
+</body>
+</html>

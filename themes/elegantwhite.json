@@ -1,0 +1,29 @@
+{
+  "name": "Elegant White",
+  "id": "elegantwhite",
+  "colors": {
+    "primary": "#FFFFFF",
+    "secondary": "#F8F9FA",
+    "accent": "#C5A059",
+    "text": "#333333",
+    "textMuted": "#777777",
+    "success": "#10B981",
+    "danger": "#EF4444"
+  },
+  "fonts": {
+    "heading": "'Cinzel', serif",
+    "body": "'Outfit', sans-serif",
+    "arabic": "'Amiri', serif"
+  },
+  "metrics": {
+    "borderRadius": "2px",
+    "borderWidth": "2px",
+    "shadowLg": "0 10px 30px -10px #C5A05940",
+    "shadowSm": "0 4px 6px rgba(0,0,0,0.2)"
+  },
+  "animations": {
+    "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+    "durationSlow": "0.8s",
+    "durationFast": "0.3s"
+  }
+}

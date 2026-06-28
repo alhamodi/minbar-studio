@@ -1,0 +1,29 @@
+{
+    "name": "Dark Onyx",
+    "id": "dark",
+    "colors": {
+        "primary": "#111111",
+        "secondary": "#222222",
+        "accent": "#00FFCC",
+        "text": "#FFFFFF",
+        "textMuted": "#AAAAAA",
+        "success": "#00FFCC",
+        "danger": "#FF4444"
+    },
+    "fonts": {
+        "heading": "'Outfit', sans-serif",
+        "body": "'Outfit', sans-serif",
+        "arabic": "'Amiri', serif"
+    },
+    "metrics": {
+        "borderRadius": "4px",
+        "borderWidth": "1px",
+        "shadowLg": "0 0 20px rgba(0, 255, 204, 0.2)",
+        "shadowSm": "none"
+    },
+    "animations": {
+        "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "durationSlow": "0.6s",
+        "durationFast": "0.2s"
+    }
+}

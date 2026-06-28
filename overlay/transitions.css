@@ -1,0 +1,55 @@
+/* Islamic Transitions CSS - Minbar Studio */
+
+/* Noor Fade: Light expands from center */
+.noor-fade-enter {
+    opacity: 0;
+    transform: scale(0.9);
+    filter: brightness(3) blur(20px);
+}
+.noor-fade-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1) blur(0);
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.noor-fade-exit {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1) blur(0);
+}
+.noor-fade-exit-active {
+    opacity: 0;
+    transform: scale(1.1);
+    filter: brightness(3) blur(20px);
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Mashrabiya Reveal: Geometric lattice opens */
+.mashrabiya-reveal-enter {
+    clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+    opacity: 0;
+}
+.mashrabiya-reveal-enter-active {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    opacity: 1;
+    transition: clip-path 1.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 1.5s;
+}
+
+/* Background Patterns Utility Classes */
+.bg-masjid-fog {
+    background: linear-gradient(to bottom, rgba(10,25,47,0.8), rgba(0,0,0,1)), url('/assets/backgrounds/masjid-silhouette.svg') bottom center/cover no-repeat;
+}
+
+.bg-geometric-stars {
+    background-color: var(--theme-color-primary);
+    background-image: radial-gradient(var(--theme-color-accent) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+.bg-luxury-emerald {
+    background: radial-gradient(circle at top right, #059669, #064e3b, #000);
+}
+
+.bg-ramadan-crescent {
+    background: linear-gradient(135deg, #1e3a8a, #0f172a);
+}
