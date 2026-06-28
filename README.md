@@ -5,6 +5,10 @@
 
 Minbar Studio is a premium, open-source broadcast toolkit designed specifically for Islamic content creators, masjids, educational institutes, and live events. Built entirely on vanilla web technologies, it provides a lightweight, highly performant overlay system for OBS Studio, complete with a remote Production Dashboard.
 
+## 🎥 Live Action Demo
+Watch the automated demo below to see the transitions, widgets, and themes in action!
+![Minbar Studio Demo](/Users/abdulrahmansalimalhamodi/.gemini/antigravity-ide/brain/32417b34-a0eb-40b4-b905-d66ccb82480e/minbar_studio_demo_1782650659596.webp)
+
 ## ✨ Features
 * **12 Premium Scenes**: Starting Soon, Live, Intermission, Ending, Offline, Announcement, Sponsor, Schedule, Dua, Quran, and more.
 * **13 Configurable Widgets**: Dynamic Clocks, Countdowns, Tickers, Chat Boxes, Goals, and Speaker Info cards.
